@@ -15,18 +15,23 @@ class Wigzo_AutoCode_Adminhtml_AutocodebackendController extends Mage_Adminhtml_
     public function saveAction()
     {
         $resp = array ();
-        unset ($_GET['via']);
-        foreach ($_GET as $key => $value) {
+        $params = $this->_request->getParams();
+        unset ($params["via"]);
+
+        foreach ($params as $key => $value) {
             Mage::getConfig()->saveConfig('admin/wigzo/'.$key, $value, 'default', 0);
         }
 
-        echo '{"status": "ok"}';
+        $res = '{"status": "ok"}';
+        $this->getResponse()->setHeader ('Content-type', 'application/json', true);
+        $this->getResponse()->setBody ($res);
         return;
     }
 
     public function indexAction()
     {
-        if (isset ($_GET['via']) && $_GET['via'] == 'xmlhttp') {
+        $via =  $this->getRequest()->getParam ('via');
+        if ($via != null && $via == 'xmlhttp') {
             $this->saveAction();
             return;
         }
@@ -35,7 +40,8 @@ class Wigzo_AutoCode_Adminhtml_AutocodebackendController extends Mage_Adminhtml_
         $block = Mage::app()->getLayout()->getBlock('autocodebackend');
 
         if (NULL == $block) {
-            die ("Cannot Load Mage App Block, this is a known problem when URL rewriting is not working fine, please contact care@wigzo.com for a resolution.");
+            $this->getResponse()->setBody ("Cannot Load Mage App Block, this is a known problem when URL rewriting is not working fine, please contact care@wigzo.com for a resolution.");
+            return;
         }
         
         $this->_title($this->__("Configuration / Wigzo"));
@@ -59,5 +65,9 @@ class Wigzo_AutoCode_Adminhtml_AutocodebackendController extends Mage_Adminhtml_
         $block->setWigzoHost ($host);
 
         $this->renderLayout();
+    }
+
+    protected function _isAllowed() {
+        return true;
     }
 }

@@ -13,11 +13,11 @@ class Wigzo_ServiceWorker_IndexController extends Mage_Core_Controller_Front_Act
         }
 
         if (! $enabled) {
-            echo "/* Wigzo Extension is Disabled */";
+            $this->getResponse()->setBody ("/* Wigzo Extension is Disabled */");
             return;
         }
 
-        echo <<<EOL
+        $serviceWorker = <<<EOL
 
 var wigzoConf = {
     "host": 'https://app.wigzo.com/',
@@ -130,6 +130,7 @@ var showNotification = function (title, body, data) {
 
 EOL;
 
-
+        $this->getResponse()->setBody ($serviceWorker);
+    
     }
 }

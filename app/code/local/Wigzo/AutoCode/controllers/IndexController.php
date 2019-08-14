@@ -12,7 +12,7 @@ class Wigzo_AutoCode_IndexController extends Mage_Core_Controller_Front_Action{
         $resp["gcm_sender_id"] = "446212695181";
         $resp["gcm_user_visible_only"] = true;
 
-        echo json_encode ($resp);
+        $this->getResponse ()->setBody (json_encode ($resp));
 
     }
 }
