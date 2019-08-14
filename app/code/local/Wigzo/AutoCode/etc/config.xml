@@ -28,11 +28,31 @@
                     <catalog_product_save_after_handler> <!-- identifier of the event handler -->
                         <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
                         <class>autocode/observer</class> <!-- observers class alias -->
-                        <method>productUpdated</method>  <!-- observer's method to be called -->
+                        <method>productUpdated</method>  <!--    observer's method to be called -->
                         <args></args> <!-- additional arguments passed to observer -->
                     </catalog_product_save_after_handler>
                 </observers>
             </catalog_product_save_after>
+            <checkout_onepage_controller_success_action> <!-- identifier of the Placing the order (Buy Event) we want to catch -->
+                <observers>
+                    <checkout_onepage_controller_success_action_handler> <!-- identifier of the event handler -->
+                        <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+                        <class>autocode/observer</class> <!-- observers class alias -->
+                        <method>productBuy</method>  <!--    observer's method to be called -->
+                        <args></args> <!-- additional arguments passed to observer -->
+                    </checkout_onepage_controller_success_action_handler>
+                </observers>
+            </checkout_onepage_controller_success_action>
+            <checkout_cart_add_product_complete> <!-- identifier of the addtocart we want to catch -->
+                <observers>
+                    <checkout_cart_add_product_complete_handler> <!-- identifier of the event handler -->
+                        <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+                        <class>autocode/observer</class> <!-- observers class alias -->
+                        <method>productAddedToCart</method>  <!--    observer's method to be called -->
+                        <args></args> <!-- additional arguments passed to observer -->
+                    </checkout_cart_add_product_complete_handler>
+                </observers>
+            </checkout_cart_add_product_complete>
         </events>
 
         <blocks>

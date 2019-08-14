@@ -1,17 +1,19 @@
 <?php $wigzo = $this->getWigzoData(); ?>
-
-<?php if ($wigzo["product"] != NULL) { ?>
-    <meta property="wg:title" content="<?php echo $wigzo["product"]->getName(); ?>" />
-<?php /*    <meta property="wg:description" content="<?php echo preg_replace ("/\r\n|\r|\n/",' - ', $wigzo["product"]->getShortDescription()); ?>" /> */ ?>
-    <meta property="wg:productId" content="<?php echo $wigzo["product"]->getSku(); ?>" />
-    <meta property="wg:url" content="<?php echo $wigzo["product"]->getProductUrl(); ?>" />
-    <link rel="canonical" href="<?php echo $wigzo["product"]->getProductUrl(); ?>" />
-    <meta property="wg:image" content="<?php echo $wigzo["product"]->getImageUrl(); ?>" />
-    <meta property="wg:price" content="<?php echo $wigzo["currency"] . " " . number_format((float) $wigzo["product"]->getPrice(), 2, '.', ''); ?>" />
-<?php } ?>
+<script>
+    window.wigzo = (function(module){ module.ready = function () { module.searchStartVal = module.$("#search_mini_form input[type=text]").val (); module.$("#search_mini_form").submit (function (e) { var currentval = module.$(e.currentTarget).find ("input[type=text]").val(); if (currentval == module.searchStartVal) { return; } module.track ("search",  currentval || ""); }); }; return module; } (window.wigzo || {}));
+</script>
 
 <?php if ($wigzo["enabled"]) { ?>
-<?php if ($wigzo["browserpush"]) { ?>
+    <?php if ($wigzo["product"] != NULL) { ?>
+        <meta property="wg:title" content="<?php echo $wigzo["product"]->getName()!=null?$wigzo["product"]->getName():""; ?>" />
+        <meta property="wg:productId" content="<?php echo $wigzo["product"]->getSku()!=null?$wigzo["product"]->getSku():""; ?>" />
+        <meta property="wg:description" content="<?php echo $wigzo["product"]->getDescription()!=null?$wigzo["product"]->getDescription():""; ?>" />
+        <meta property="wg:url" content="<?php echo $wigzo["product"]->getProductUrl()!=null?$wigzo["product"]->getProductUrl():""; ?>" />
+        <link rel="canonical" href="<?php echo $wigzo["product"]->getProductUrl()!=null?$wigzo["product"]->getProductUrl():""; ?>" />
+        <meta property="wg:image" content="<?php echo $wigzo["product"]->getImageUrl()!=null?$wigzo["product"]->getImageUrl():""; ?>" />
+        <meta property="wg:price" content="<?php echo $wigzo["currency"] !=null?$wigzo["currency"]:""; ?>" />
+    <?php } ?>
+    <?php if ($wigzo["browserpush"]) { ?>
 
     <!-- Wigzo Browser Push Support: Added by Magento Extension -->
 <?php if ($wigzo["viahttps"]) { ?>

@@ -3,6 +3,7 @@ class Wigzo_AutoCode_CodeBlock_Myblock extends Mage_Core_Block_Template
 {
     public function getWigzoData()
     {
+        $product = Mage::registry('current_product');
         $wigzodata = array ();
         $wigzodata["standardhost"] = true;
         $wigzodata["host"] = "https://app.wigzo.com";
@@ -19,7 +20,7 @@ class Wigzo_AutoCode_CodeBlock_Myblock extends Mage_Core_Block_Template
         $wigzodata["browserpush"] = true;
         $wigzodata["viahttps"] = true;          // Need user input
         $wigzodata["subpath"] = "/index.php";
-        $wigzodata["currency"] = str_replace ("100.00", "",  Mage::helper('core')->currency("100", true, false));
+        $wigzodata["currency"] = Mage::helper('core')->currency($product!=null?$product->getFinalPrice():"", true, false);
 
         $is_rewriting = Mage::getStoreConfig('web/seo/use_rewrites');
         if ($is_rewriting) {
@@ -70,7 +71,6 @@ class Wigzo_AutoCode_CodeBlock_Myblock extends Mage_Core_Block_Template
         $orgId = Mage::getStoreConfig('admin/wigzo/orgId');
         $wigzodata["orgidentifier"] = $orgId;
 
-        $product = Mage::registry('current_product');
         $wigzodata["product"] = $product;
 
         //var_dump ($wigzodata);
