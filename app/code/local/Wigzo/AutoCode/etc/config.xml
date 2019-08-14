@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Wigzo_AutoCode>
+            <version>0.1.0</version>
+        </Wigzo_AutoCode>
+    </modules>
+    <global>
+        <helpers>
+            <autocode>
+                <class>Wigzo_AutoCode_Helper</class>
+            </autocode>
+        </helpers>
+        <blocks>
+            <autocode>
+                <class>Wigzo_AutoCode_Block</class>
+            </autocode>
+        </blocks>
+        <models>
+            <autocode>
+                <class>Wigzo_AutoCode_Model</class>
+                <resourceModel>autocode_mysql4</resourceModel>
+            </autocode>
+        </models>
+        <events>
+            <catalog_product_save_after> <!-- identifier of the event we want to catch -->
+                <observers>
+                    <catalog_product_save_after_handler> <!-- identifier of the event handler -->
+                        <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+                        <class>autocode/observer</class> <!-- observers class alias -->
+                        <method>productUpdated</method>  <!-- observer's method to be called -->
+                        <args></args> <!-- additional arguments passed to observer -->
+                    </catalog_product_save_after_handler>
+                </observers>
+            </catalog_product_save_after>
+        </events>
+
+        <blocks>
+            <scriptblock>
+                <class>Wigzo_AutoCode_CodeBlock</class>
+            </scriptblock>
+        </blocks>
+
+
+    </global>
+    <admin>
+        <routers>
+            <autocode>
+                <use>admin</use>
+                <args>
+                    <module>Wigzo_AutoCode</module>
+                    <frontName>admin_autocode</frontName>
+                </args>
+            </autocode>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <autocode module="autocode">
+                <title>Wigzo</title>
+                <sort_order>100</sort_order>
+                <children>
+                    <autocodebackend module="autocode">
+                        <title>Configuration</title>
+                        <sort_order>0</sort_order>
+                        <action>admin_autocode/adminhtml_autocodebackend</action>
+                    </autocodebackend>
+                </children>
+            </autocode>
+        </menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <autocode translate="title" module="autocode">
+                            <title>AutoCode</title>
+                            <sort_order>1000</sort_order>
+                            <children>
+                                <autocodebackend translate="title">
+                                    <title>Configuration / Wigzo</title>
+                                </autocodebackend>
+                            </children>
+                        </autocode>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <autocode>
+                    <file>autocode.xml</file>
+                </autocode>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <frontend>
+        <layout>
+            <updates>
+                <scriptblock>
+                    <file>scriptblock.xml</file>
+                </scriptblock>
+            </updates>
+        </layout>
+        <routers>
+            <autocode>
+                <use>standard</use>
+                <args>
+                    <module>Wigzo_AutoCode</module>
+                    <frontName>gcm_manifest.json</frontName>
+                </args>
+            </autocode>
+        </routers>  
+
+    </frontend>
+
+</config> 

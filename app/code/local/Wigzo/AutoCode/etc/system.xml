@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	  <tabs>
+		<wigzo translate="label" module="autocode">
+            <label>Wigzo</label>
+            <sort_order>1000</sort_order>
+        </wigzo>
+	  </tabs>
+</config>

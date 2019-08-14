@@ -1,13 +1,13 @@
 {
     "name": "OpenMageModuleFostering/Wigzo_AutoCode",
     "type": "magento-module",
-    "license": "BSDL",
+    "license": "GNU",
     "homepage": "",
-    "description": "Send personalised browser notification and re-engage with your most loyal customers using Browser Push.",
+    "description": "Wigzo Push is a plugin that allows you to Send and Track Web Push Notification through your Magento Store. It allows you to take Browser Opt in from people visiting your store and then Send and Track browser notifications to bring people back to your store, even when they are not browsing the site. It allows your store to re-engage your most loyal customers with targeted push notifications",
     "authors": [
     {
-        "name": "Mohammad Umair",
-        "email": "umair@wigzo.com"
+        "name": "wigzo",
+        "email": "info@wigo.com"
     }
 ],
     "suggest": {

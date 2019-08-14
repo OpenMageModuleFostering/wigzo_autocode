@@ -1,0 +1,19 @@
+<config>    
+    <modules>
+        <Wigzo_ServiceWorker>
+            <version>0.1.0</version>
+        </Wigzo_ServiceWorker>
+    </modules>
+
+    <frontend>
+        <routers>
+            <serviceworker>
+                <use>standard</use>
+                <args>
+                    <module>Wigzo_ServiceWorker</module>
+                    <frontName>gcm_service_worker.js</frontName>
+                </args>
+            </serviceworker>
+        </routers>  
+    </frontend>
+</config>

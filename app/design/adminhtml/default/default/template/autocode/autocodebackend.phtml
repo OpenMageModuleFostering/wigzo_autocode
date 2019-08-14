@@ -54,7 +54,7 @@ window.wigzoHelpers.xhr = function (method, path, opts) {
 <iframe id="wigzoconfigframe" style="border: 0; width: 100%; height: 500px;" src=""></iframe>
 
 <script type="text/javascript">
-if (window.location.port == "80") {
+if (window.location.port == "80" || window.location.port == "") {
     var iHost = window.location.hostname;
 } else {
     var iHost = window.location.hostname + ":" + window.location.port;

@@ -1,88 +1,18 @@
 <?xml version="1.0"?>
 <package>
     <name>Wigzo_AutoCode</name>
-    <version>0.1.0</version>
+    <version>0.1.5</version>
     <stability>beta</stability>
-    <license>BSDL</license>
+    <license>GNU</license>
     <channel>community</channel>
     <extends/>
-    <summary>Send personalised browser notification and re-engage with your most loyal customers using Browser Push.</summary>
-    <description>Web Push Notifications&#xD;
-Wigzo is a complete Personalised Push Notification engine for Magento stores, trusted by 1000 of developers, Magento store owners and marketers across the globe. It helps you and your store to re-engage with the most loyal customers with Personalised push notifications. Free upto first 5000 subscribers. Premium plans starts at $19/month. See pricing plans for more details.&#xD;
-This Plugin for sending Personalised Push notification on User&#x2019;s browser allow you to Retarget people who want to Receive updates from your magento Store.&#xD;
-&#xD;
-Types of Triggers Our Users Create on Magento&#xD;
-1)	Cart Recovery Push Notifications:&#xD;
-2)	Search Abandonment Push Notification&#xD;
-3)	Recommendations Push Notification&#xD;
-4)	Delivery Tracking Web Push Notifications&#xD;
-5)	Automated Triggered Push Notification&#xD;
-6)	Not completed Purchased Notification&#xD;
-7)	Daily Offer Updates Notification&#xD;
-8)	Price Alerts,&#xD;
-&#xD;
-Features:&#xD;
-Triggered Based Notifications:&#xD;
-Advanced Segmentation Rule Engine&#xD;
-Real Time Tracking of Opens and Clicks&#xD;
-One Click optin for HTTP and HTTPS both&#xD;
-Powerful APIs to send notifications&#xD;
-Schedule and Send Push Notification&#xD;
-CTRs and Sales Generated calculated&#xD;
-Recommendations and Personalisation&#xD;
-Last Product Browsed Notification&#xD;
-Time based reporting, so you can send at the right time&#xD;
-Works on All browsers on Android, Desktop and Mac&#xD;
-&#xD;
-Results:&#xD;
-More than 15 % optin Rates on Desktop and Mobile&#xD;
-33%  Abandoned Cart Recovery Through Notifications&#xD;
-11% increase in Average Order Value through Personalised Push&#xD;
-40% Greater Retention of users&#xD;
-200% cheaper than email on ROI&#xD;
-3x Higher engagement with Personalised Notification&#xD;
-&#xD;
-This plugin will automatically install the required library into your store post account verification. You need to first create a FREE Wigzo account then copy your API Keys &amp; Secret Keys in the plugin configuration section to start using Wigzo. All the major functionalities, dashboard, metrics are displayed within your Magento Admin Panel.&#xD;
-After setup, your visitors can opt-in to receive Web/Browser push notifications from your store, and receive notifications sent by your store even when they are not browsing your site. These notifications are delivered on all devices i.e. desktops, tablets and even mobile phones.&#xD;
-To engage you can alert your visitors by sending them Deals and Offers, special discounts, promo codes, freebies etc or create some of our smart triggers to bring them back and eventually convert them to regular and loyal customer. Personalisation in notification is the key to unlock hidden revenue potential.&#xD;
-It's like a newsletter, but more efficient and effective in keeping your audience engaged. Push notifications are an incredibly user-friendly communication channel, has a higher opt-in rate and click-through rate in the range of 12-18%, but the key is to send Relevant and Personalised Push notifications to keep the audience engaged.&#xD;
-Who Is This Extension For?&#xD;
-This extension is primarily intended for Magento store owners, marketers who want to enagge their audience with Personalised content on Push notiifcations, and keep the users Loyal and Happy.&#xD;
-&#xD;
-How Does It Works?&#xD;
-Push Notifications for Magento by Wigzo works like the following:&#xD;
-1.	Customers, visitors opt-in to receive notification from your Magento store.&#xD;
-2.	You broadcast a message to all or segment of your customers.&#xD;
-3.	All customers who opted to receive notification from your store receive it on their respective devices. Desktops, Mobiles or Tablets.&#xD;
-4.	Works of Chrome, Firefox and Safari&#xD;
-5.	You receive all Premium Accounts features even when you are under  5000 Subscribers.&#xD;
-&#xD;
-Frequently Asked Questions&#xD;
-&#xD;
-* Do I need to sign up to Wigzo to use this extension?&#xD;
-Yes, you can create your FREE account from the extension itself. If you are already using Wigzo just copy your API Key &amp; Secret Key from Wigzo control panel and paste in Wigzo configuration setting panel ard once.&#xD;
-&#xD;
-* Can Wigzo be implemented on HTTP Magento stores?&#xD;
-Yes, Wigzo can be implemented on a HTTP or HTTPS websites. We have created a unique way to implement it in one click for HTTP sites as well. Read our documentation to see how that works. .&#xD;
-&#xD;
-* What will happen when i reach 5000 subscribers in my FREE account?&#xD;
-Once you reach 5000 subscribers, Wigzo will continue to work and let you collect more subscribers but will not let you send notifications to these new subscribers. You can send unlimited notifications to your first 3000 subscriber but to send notifications to all subscribers you need to upgrade to premium (Paid) account. Check our pricing plans.&#xD;
-&#xD;
-* What will push notifications look like?&#xD;
-That depends on the browser! Each browser will display your notifications somewhat differently, but in general the notifications will look appropriate for the device/OS/browser on which they are displayed. Check out the Jpegs to see how they look like on each device.&#xD;
-&#xD;
-Installation&#xD;
-1.	Turn off Magento's Compilation Mode (if you have previously enabled it)&#xD;
-2.	Install the extension&#xD;
-3.	Log in to your back-end and go to System-&gt;Configuration-&gt;Wigzo&#xD;
-4.	Log in with your Wigzo account.&#xD;
-5.	After setting some configuration, Refresh the Magento Cache&#xD;
-6.	Turn On Magento's compilation Mode</description>
-    <notes>First stable release.</notes>
-    <authors><author><name>Mohammad Umair</name><user>umair</user><email>umair@wigzo.com</email></author><author><name>Shamail Tayyab</name><user>shamail</user><email>shamail@wigzo.com</email></author></authors>
-    <date>2016-10-12</date>
-    <time>06:41:36</time>
-    <contents><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="autocode.xml" hash="2aa2dbb52397cc65a59ac67e4e3afd66"/></dir><dir name="template"><dir name="autocode"><file name="autocodebackend.phtml" hash="d1bcf881ae5114bc6591737667a8547e"/></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="scriptblock.xml" hash="51512b2845d56dafa3028e8892702a76"/></dir><dir name="template"><dir name="scriptblock"><file name="foot.phtml" hash="2ded2491adf32d8157b8c6d5ec0b7726"/><file name="head.phtml" hash="0b9fa65fbf65b7efbf6fba7eda02ab3f"/><file name="index.phtml" hash="da91307168404679f859274c2bb878b9"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Wigzo_AutoCode.xml" hash="fba2c2a20f4dad9b72a67f8876465906"/></dir></target></contents>
+    <summary>Wigzo Push is a plugin that allows you to Send and Track Web Push Notification through your Magento Store. It allows you to take Browser Opt in from people visiting your store and then Send and Track browser notifications to bring people back to your store, even when they are not browsing the site. It allows your store to re-engage your most loyal customers with targeted push notifications</summary>
+    <description>Wigzo Push is a plugin that allows you to Send and Track Web Push Notification through your Magento Store. It allows you to take Browser Opt in from people visiting your store and then Send and Track browser notifications to bring people back to your store, even when they are not browsing the site. It allows your store to re-engage your most loyal customers with targeted push notifications</description>
+    <notes>Wigzo Push is a plugin that allows you to Send and Track Web Push Notification through your Magento Store. It allows you to take Browser Opt in from people visiting your store and then Send and Track browser notifications to bring people back to your store, even when they are not browsing the site. It allows your store to re-engage your most loyal customers with targeted push notifications</notes>
+    <authors><author><name>wigzo</name><user>wigzo</user><email>info@wigo.com</email></author><author><name>shamail</name><user>shamail</user><email>shamail@wigzo.com</email></author></authors>
+    <date>2016-11-03</date>
+    <time>05:36:25</time>
+    <contents><target name="magelocal"><dir name="Wigzo"><dir name="AutoCode"><dir name="Block"><dir name="Adminhtml"><file name="Autocodebackend.php" hash="da50f2305de5c4e7163f7dfb7459be32"/></dir><file name="Index.php" hash="88b27827847cb37a5ab250ad7b0b6fd5"/></dir><dir name="CodeBlock"><file name="Myblock.php" hash="1b953a0cf9d7c9cfbf220a1994395acb"/></dir><dir name="Helper"><file name="Data.php" hash="43aff13a0e71fd995800fa1f9178c659"/></dir><dir name="Model"><file name="Observer.php" hash="ff8c027877d2e4457f9275b8dd78fe52"/></dir><dir name="controllers"><dir name="Adminhtml"><file name="AutocodebackendController.php" hash="af6fdcb249ece207431610ddf689a6a5"/></dir><file name="IndexController.php" hash="87e6e211e651ff4ac3916a568d235517"/></dir><dir name="etc"><file name="config.xml" hash="29003cefdb50cce1fcfe18a6c0b51ac9"/><file name="system.xml" hash="92e358822c1457b0c170b8f61837d413"/></dir></dir><dir name="ServiceWorker"><dir name="Helper"><file name="Data.php" hash="43aff13a0e71fd995800fa1f9178c659"/></dir><dir name="controllers"><file name="IndexController.php" hash="8e78b7804f00a484c0e94e8b7ec90853"/></dir><dir name="etc"><file name="config.xml" hash="7ff3615eb92a706dc4b2b19c9a1ccced"/></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="autocode.xml" hash="2aa2dbb52397cc65a59ac67e4e3afd66"/></dir><dir name="template"><dir name="autocode"><file name="autocodebackend.phtml" hash="076e647e590f1842100f18d0c761e2c4"/></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="scriptblock.xml" hash="51512b2845d56dafa3028e8892702a76"/></dir><dir name="template"><dir name="scriptblock"><file name="foot.phtml" hash="2ded2491adf32d8157b8c6d5ec0b7726"/><file name="head.phtml" hash="0b9fa65fbf65b7efbf6fba7eda02ab3f"/><file name="index.phtml" hash="da91307168404679f859274c2bb878b9"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Wigzo_AutoCode.xml" hash="fba2c2a20f4dad9b72a67f8876465906"/></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.5.0</min><max>5.9.0</max></php></required></dependencies>
 </package>
