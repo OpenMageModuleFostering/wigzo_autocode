@@ -107,7 +107,6 @@ class Wigzo_AutoCode_Model_Observer
 
     }
 
-
     public function productBuy($observer)
     {
 
