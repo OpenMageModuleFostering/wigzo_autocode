@@ -5,7 +5,6 @@ class Wigzo_AutoCode_Model_Observer
 
     public function productUpdated(Varien_Event_Observer $observer)
     {
-
         $enabled = Mage::getStoreConfig('admin/wigzo/enabled');
         if ($enabled == NULL || $enabled == "false") {
             Mage::log("Wigzo Plugin is not Enabled! not writing updated.", null, "wigzo-updates.log");
@@ -49,7 +48,6 @@ class Wigzo_AutoCode_Model_Observer
 
     public function productAddedToCart($observer)
     {
-
         $enabled = Mage::getStoreConfig('admin/wigzo/enabled');
         if ($enabled == NULL || $enabled == "false") {
             Mage::log("Wigzo Plugin is not Enabled! not writing updated.", null, "wigzo-updates.log");
@@ -77,7 +75,7 @@ class Wigzo_AutoCode_Model_Observer
 
         //Post data to be sent in the request.
         $postdata = array();
-        $postdata["canonical"] = $product->getProductUrl();
+        $postdata["canonical"] = explode("?",$product->getProductUrl())[0];
         $postdata["name"] = $product->getName();
         $postdata["productId"] = $product->getSku();
         $postdata["title"] = $product->getTitle();
@@ -87,7 +85,7 @@ class Wigzo_AutoCode_Model_Observer
         $postdata['_'] = $timestamp;
         $postdata['e'] = "";
         $postdata['pageuuid'] = $pageUuid;
-        $postdata['eventval'] = $product->getProductUrl();
+        $postdata['eventval'] = explode("?",$product->getProductUrl())[0];
         $postdata['source'] = $source;
         $postdata["price"] = Mage::helper('core')->currency($product != null ? $product->getFinalPrice() : "", true, false);
 
@@ -140,12 +138,14 @@ class Wigzo_AutoCode_Model_Observer
         $i = 0;
         foreach ($product_id as $temp) {
             $product = $temp = Mage::getModel('catalog/product')->load($temp);
-            $eventVal[$i] = $product->getProductUrl();
+            $url = explode("?",$product->getProductUrl());
+            $eventVal[$i] = $url[0];
             $i++;
         }
 
         //$currency = str_replace ("100.00", "",  Mage::helper('core')->currency("100", true, false));
         $orgToken = Mage::getStoreConfig('admin/wigzo/orgId');
+
 
         $lang = substr(Mage::getStoreConfig('general/locale/code', Mage::app()->getStore()->getId()), 0, 2);
         $timestamp = date('Y-m-d H:i:s');
