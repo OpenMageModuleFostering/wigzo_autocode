@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <autocode_adminhtml_autocodebackend_index>
+	<reference name="content">
+	  <block type="autocode/adminhtml_autocodebackend" name="autocodebackend" template="autocode/autocodebackend.phtml"/>
+	</reference>
+  </autocode_adminhtml_autocodebackend_index>
+</layout>

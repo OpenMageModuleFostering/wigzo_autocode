@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Wigzo_AutoCode",
+    "type": "magento-module",
+    "license": "BSDL",
+    "homepage": "",
+    "description": "Send personalised browser notification and re-engage with your most loyal customers using Browser Push.",
+    "authors": [
+    {
+        "name": "Mohammad Umair",
+        "email": "umair@wigzo.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

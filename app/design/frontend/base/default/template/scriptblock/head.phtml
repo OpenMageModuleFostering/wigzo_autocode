@@ -1,0 +1,39 @@
+<?php $wigzo = $this->getWigzoData(); ?>
+
+<?php if ($wigzo["product"] != NULL) { ?>
+    <meta property="wg:title" content="<?php echo $wigzo["product"]->getName(); ?>" />
+<?php /*    <meta property="wg:description" content="<?php echo preg_replace ("/\r\n|\r|\n/",' - ', $wigzo["product"]->getShortDescription()); ?>" /> */ ?>
+    <meta property="wg:productId" content="<?php echo $wigzo["product"]->getSku(); ?>" />
+    <meta property="wg:url" content="<?php echo $wigzo["product"]->getProductUrl(); ?>" />
+    <link rel="canonical" href="<?php echo $wigzo["product"]->getProductUrl(); ?>" />
+    <meta property="wg:image" content="<?php echo $wigzo["product"]->getImageUrl(); ?>" />
+    <meta property="wg:price" content="<?php echo $wigzo["currency"] . " " . number_format((float) $wigzo["product"]->getPrice(), 2, '.', ''); ?>" />
+<?php } ?>
+
+<?php if ($wigzo["enabled"]) { ?>
+<?php if ($wigzo["browserpush"]) { ?>
+
+    <!-- Wigzo Browser Push Support: Added by Magento Extension -->
+<?php if ($wigzo["viahttps"]) { ?>
+    <script type="text/javascript">
+        window.wigzo = (function (module) {
+            module.wigzoGcmAutoSubscribe = true;
+            return module;
+        } (window.wigzo || {}));
+    </script>
+
+    <link rel="manifest" href="<?php echo $wigzo["subpath"]; ?>/gcm_manifest.json" />
+<script async src="<?php echo $wigzo["tracker"]; ?>/wigzopush_manager.js?orgtoken=<?php echo $wigzo["orgidentifier"]; ?>&subpath=<?php echo urlencode ($wigzo["subpath"]);?>" type="text/javascript"></script>
+<?php } else { ?>
+    <script type="text/javascript">
+        window.wigzo = (function(module){
+            module.httpGcmShowDialog = true;
+            return module;
+        }(window.wigzo || {}));
+    </script>
+    <script async src="<?php echo $wigzo["tracker"]; ?>/gcm_http_subscribe.js?orgtoken=<?php echo $wigzo["orgidentifier"]; ?>" type="text/javascript"></script>
+<?php } ?>
+    <!-- End Wigzo Browser Push Support -->
+
+<?php } ?>
+<?php } ?>

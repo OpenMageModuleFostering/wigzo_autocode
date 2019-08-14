@@ -1,0 +1,22 @@
+<?php $wigzo = $this->getWigzoData(); ?>
+
+<?php if ($wigzo["enabled"]) { ?>
+
+<script type="text/javascript">
+    window.wigzo = (function(module) {
+        <?php if (! $wigzo["standardhost"]) { ?>module.APP = "<?php echo $wigzo["host"]; ?>";
+        module.TRACKER = "<?php echo $wigzo["tracker"] ?>";
+        module.DEBUG = true;<?php } ?> 
+        module.USER_IDENTIFIER = "<?php echo $wigzo["userIdentifier"]; ?>";
+        module.ORGANIZATIONID = "<?php echo $wigzo['orgidentifier']; ?>";  
+        module.FEATURES = {
+            "ONSITEPUSH": <?php echo $wigzo["onsite"]; ?> 
+        };
+        return module;
+    }(window.wigzo || {})); 
+</script>
+<script async type="text/javascript" src="<?php echo $wigzo["tracker"]; ?>/wigzo.js"></script>
+
+<?php } else {
+    echo "<!-- Wigzo is Disabled -->\n";
+} ?>
