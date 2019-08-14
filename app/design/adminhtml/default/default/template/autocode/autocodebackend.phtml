@@ -1,98 +1,85 @@
 <script type="text/javascript">
-window.wigzoHelpers = {};
-window.wigzoHelpers.xhr = function (method, path, opts) {
-    var successFn = opts.success || function () {};
-    var errorFn = opts.error || function () {};
-    var data = opts.data || {};
-
-    if (method == "POST") {
-        data = JSON.stringify (data);
-    }
-
-    var wxhr = typeof XMLHttpRequest != 'undefined' ? new XMLHttpRequest() : new ActiveXObject ('Microsoft.XMLHTTP');
-    if (! (method == 'GET' || method == 'POST')) {
-        errorFn (21, "Only GET or POST is allowed!");
-        return;
-    }
-
-    if (method == "GET") {
-        var out = new Array();
-        for (key in data) {
-            out.push (key + '=' + encodeURIComponent(data[key]));
+    window.wigzoHelpers = {};
+    window.wigzoHelpers.xhr = function (method, path, opts) {
+        var successFn = opts.success || function () {
+            };
+        var errorFn = opts.error || function () {
+            };
+        var data = opts.data || {};
+        if (method == "POST") {
+            data = JSON.stringify(data);
         }
-        params = out.join('&');
-        path = path + "?" + params;
-    }
-
-    wxhr.open (method, path, true);
-    //wxhr.setRequestHeader ("Content-Type", "application/json;charset=UTF-8"); 
-
-    wxhr.onreadystatechange = function () {
-        if (wxhr.readyState == 4 && wxhr.status == 200) {
-            var textResp = wxhr.responseText;
-            if (opts.hasOwnProperty ('expected') && opts['expected'] == 'json') {
-                try {
-                    textResp = JSON.parse (textResp);
-                } catch (err) {
-                    errorFn (20, "Cannot Parse JSON");
-                    return;
-                }
+        var wxhr = typeof XMLHttpRequest != 'undefined' ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        if (!(method == 'GET' || method == 'POST')) {
+            errorFn(21, "Only GET or POST is allowed!");
+            return;
+        }
+        if (method == "GET") {
+            var out = new Array();
+            for (key in data) {
+                out.push(key + '/' + encodeURIComponent(data[key]));
             }
-            successFn (textResp);
+            params = out.join('/');
+            path = path + "/" + params;
         }
-    }
-
-    if (method == "POST") {
-        wxhr.send (data);
-    } else {
-        wxhr.send (null);
-    }
-
-};
-
+        wxhr.open(method, path, true);
+        //wxhr.setRequestHeader ("Content-Type", "application/json;charset=UTF-8");
+        wxhr.onreadystatechange = function () {
+            if (wxhr.readyState == 4 && wxhr.status == 200) {
+                var textResp = wxhr.responseText;
+                if (opts.hasOwnProperty('expected') && opts['expected'] == 'json') {
+                    try {
+                        textResp = JSON.parse(textResp);
+                    } catch (err) {
+                        errorFn(20, "Cannot Parse JSON");
+                        return;
+                    }
+                }
+                successFn(textResp);
+            }
+        }
+        if (method == "POST") {
+            wxhr.send(data);
+        } else {
+            wxhr.send(null);
+        }
+    };
 </script>
 <iframe id="wigzoconfigframe" style="border: 0; width: 100%; height: 500px;" src=""></iframe>
-
 <script type="text/javascript">
-if (window.location.port == "80" || window.location.port == "") {
-    var iHost = window.location.hostname;
-} else {
-    var iHost = window.location.hostname + ":" + window.location.port;
-}
-document.getElementById ("wigzoconfigframe").src = "<?php echo $this->getWigzoHost(); ?>/integration/magento/frame/" + iHost + "/" + "<?php echo $this->getAuthtoken(); ?>";
-
-window.addEventListener ('message', function (event) { 
-    debugger;
-    var eventData = event.data;
-    var aquired_token = eventData.key;
-    if (! aquired_token) {
-        console.error ("Cannot GET static key from Wigzo!");
-        return;
+    if (window.location.port == "80" || window.location.port == "") {
+        var iHost = window.location.hostname;
+    } else {
+        var iHost = window.location.hostname + ":" + window.location.port;
     }
-
-    var params = {
-        via: "xmlhttp",
-        token: aquired_token,
-        enabled: eventData.enabled,
-        orgId: eventData.orgIdentifier,
-        viahttps: eventData.viahttps
-    };
-
-    for (var k in eventData.features) {
-        params[k] = eventData.features[k];
-    }
-
-
-    window.wigzoHelpers.xhr ('GET', '.', {
-        expected: 'json',
-        data: params,
-        success: function (resp) {
-            console.log ("Successfully, Saved Wigzo Configuration!");
-        },
-        error: function (code, msg) {
-            console.error ("Cannot save Wigzo config: " + code + ": " + msg);
+    document.getElementById("wigzoconfigframe").src = "<?php echo $this->getWigzoHost(); ?>/integration/magento/frame/" + iHost + "/" + "<?php echo $this->getAuthtoken(); ?>";
+    window.addEventListener('message', function (event) {
+        debugger;
+        var eventData = event.data;
+        var aquired_token = eventData.key;
+        if (!aquired_token) {
+            console.error("Cannot GET static key from Wigzo!");
+            return;
         }
+        var params = {
+            via: "xmlhttp",
+            token: aquired_token,
+            enabled: eventData.enabled,
+            orgId: eventData.orgIdentifier,
+            viahttps: eventData.viahttps
+        };
+        for (var k in eventData.features) {
+            params[k] = eventData.features[k];
+        }
+        window.wigzoHelpers.xhr('GET', '.', {
+            expected: 'json',
+            data: params,
+            success: function (resp) {
+                console.log("Successfully, Saved Wigzo Configuration!");
+            },
+            error: function (code, msg) {
+                console.error("Cannot save Wigzo config: " + code + ": " + msg);
+            }
+        });
     });
-}); 
-
 </script>

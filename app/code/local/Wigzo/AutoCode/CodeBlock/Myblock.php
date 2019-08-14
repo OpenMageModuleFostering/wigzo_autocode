@@ -4,14 +4,14 @@ class Wigzo_AutoCode_CodeBlock_Myblock extends Mage_Core_Block_Template
     public function getWigzoData()
     {
         $product = Mage::registry('current_product');
-        $wigzodata = array ();
+        $wigzodata = array();
         $wigzodata["standardhost"] = true;
         $wigzodata["host"] = "https://app.wigzo.com";
         $wigzodata["tracker"] = "https://tracker.wigzopush.com";
-        if (file_exists ("/tmp/wigzomode")) {
+        if (file_exists("/tmp/wigzomode")) {
             $wigzodata["standardhost"] = false;
-            $wigzodata["host"] = trim (file_get_contents ("/tmp/wigzomode"));
-            $wigzodata["tracker"] = trim (file_get_contents ("/tmp/wigzomode"));
+            $wigzodata["host"] = trim(file_get_contents("/tmp/wigzomode"));
+            $wigzodata["tracker"] = trim(file_get_contents("/tmp/wigzomode"));
         }
         $wigzodata["enabled"] = true;
         $wigzodata["suppression"] = "";
@@ -20,7 +20,7 @@ class Wigzo_AutoCode_CodeBlock_Myblock extends Mage_Core_Block_Template
         $wigzodata["browserpush"] = true;
         $wigzodata["viahttps"] = true;          // Need user input
         $wigzodata["subpath"] = "/index.php";
-        $wigzodata["currency"] = Mage::helper('core')->currency($product!=null?$product->getFinalPrice():"", true, false);
+        $wigzodata["currency"] = Mage::helper('core')->currency($product != null ? $product->getFinalPrice() : "", true, false);
 
         $is_rewriting = Mage::getStoreConfig('web/seo/use_rewrites');
         if ($is_rewriting) {
@@ -36,9 +36,9 @@ class Wigzo_AutoCode_CodeBlock_Myblock extends Mage_Core_Block_Template
         $suppression = Mage::getStoreConfig('admin/wigzo/suppression');
         if (NULL != $suppression) {
             $currentServerName = Mage::app()->getFrontController()->getRequest()->getServer('SERVER_NAME');
-            $blocked = explode (",", $suppression);
+            $blocked = explode(",", $suppression);
 
-            for ($i = 0 ; $i < count ($blocked) ; $i++) {
+            for ($i = 0; $i < count($blocked); $i++) {
                 if ($blocked[$i] == $currentServerName) {
                     $wigzodata["enabled"] = false;
                     return $wigzodata;
@@ -65,7 +65,7 @@ class Wigzo_AutoCode_CodeBlock_Myblock extends Mage_Core_Block_Template
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             $customer = Mage::getSingleton('customer/session')->getCustomer();
             $customerData = Mage::getModel('customer/customer')->load($customer->getId())->getData();
-            $wigzodata["userIdentifier"]= $customerData["email"];
+            $wigzodata["userIdentifier"] = $customerData["email"];
         }
 
         $orgId = Mage::getStoreConfig('admin/wigzo/orgId');
@@ -74,7 +74,7 @@ class Wigzo_AutoCode_CodeBlock_Myblock extends Mage_Core_Block_Template
         $wigzodata["product"] = $product;
 
         //var_dump ($wigzodata);
-        
+
         return $wigzodata;
     }
 }

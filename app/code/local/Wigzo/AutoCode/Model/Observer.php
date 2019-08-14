@@ -1,46 +1,42 @@
 <?php
+
 class Wigzo_AutoCode_Model_Observer
 {
 
     public function productUpdated(Varien_Event_Observer $observer)
     {
-        //Mage::dispatchEvent('admin_session_user_login_success', array('user'=>$user));
-        //$user = $observer->getEvent()->getUser();
-        //$user->doSomething();
 
         $enabled = Mage::getStoreConfig('admin/wigzo/enabled');
         if ($enabled == NULL || $enabled == "false") {
-            Mage::log ("Wigzo Plugin is not Enabled! not writing updated.", null, "wigzo-updates.log");
+            Mage::log("Wigzo Plugin is not Enabled! not writing updated.", null, "wigzo-updates.log");
             return;
         }
 
         $wigzo_host = "https://app.wigzo.com";
-        if (file_exists ("/tmp/wigzomode")) {
-            $wigzo_host = trim (file_get_contents ("/tmp/wigzomode"));
+        if (file_exists("/tmp/wigzomode")) {
+            $wigzo_host = trim(file_get_contents("/tmp/wigzomode"));
         }
 
-        //$currency = str_replace ("100.00", "",  Mage::helper('core')->currency("100", true, false));
         $orgToken = Mage::getStoreConfig('admin/wigzo/orgId');
 
         $product = $observer->getEvent()->getProduct();
 
-        $postdata = array ();
+        $postdata = array();
 
-        //$postdata["canonical"] = $product->getSku();
         $postdata["name"] = $product->getName();
         $postdata["productId"] = $product->getSku();
         $postdata["title"] = $product->getTitle();
         $postdata["image"] = $product->getImageUrl();
-        $postdata["price"] = Mage::helper('core')->currency($product!=null?$product->getFinalPrice():"", true, false);
+        $postdata["price"] = Mage::helper('core')->currency($product != null ? $product->getFinalPrice() : "", true, false);
 
-        $ch = curl_init ();
-        curl_setopt ($ch, CURLOPT_URL,"$wigzo_host/api/v1/product/" . $orgToken);
-        curl_setopt ($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt ($ch, CURLOPT_POST, 1);
-        curl_setopt ($ch, CURLOPT_POSTFIELDS, json_encode ($postdata));
-        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-        $server_output = curl_exec ($ch);
-        curl_close ($ch);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "$wigzo_host/api/v1/product/" . $orgToken);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postdata));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $server_output = curl_exec($ch);
+        curl_close($ch);
 
         // Write a new line to var/log/product-updates.log
         Mage::log(
@@ -51,17 +47,18 @@ class Wigzo_AutoCode_Model_Observer
 
     }
 
-    public function productAddedToCart($observer){
+    public function productAddedToCart($observer)
+    {
 
         $enabled = Mage::getStoreConfig('admin/wigzo/enabled');
         if ($enabled == NULL || $enabled == "false") {
-            Mage::log ("Wigzo Plugin is not Enabled! not writing updated.", null, "wigzo-updates.log");
+            Mage::log("Wigzo Plugin is not Enabled! not writing updated.", null, "wigzo-updates.log");
             return;
         }
 
         $wigzo_host = "https://app.wigzo.com";
-        if (file_exists ("/tmp/wigzomode")) {
-            $wigzo_host = trim (file_get_contents ("/tmp/wigzomode"));
+        if (file_exists("/tmp/wigzomode")) {
+            $wigzo_host = trim(file_get_contents("/tmp/wigzomode"));
         }
 
         $cookieID = Mage::getSingleton('core/cookie')->get()['WIGZO_LEARNER_ID'];
@@ -79,7 +76,7 @@ class Wigzo_AutoCode_Model_Observer
         $product = $observer->getEvent()->getProduct();
 
         //Post data to be sent in the request.
-        $postdata = array ();
+        $postdata = array();
         $postdata["canonical"] = $product->getProductUrl();
         $postdata["name"] = $product->getName();
         $postdata["productId"] = $product->getSku();
@@ -88,20 +85,20 @@ class Wigzo_AutoCode_Model_Observer
         $postdata['lang'] = $lang;
         $postdata['eventCategory'] = $eventCategory;
         $postdata['_'] = $timestamp;
-        $postdata['e'] ="";
+        $postdata['e'] = "";
         $postdata['pageuuid'] = $pageUuid;
-        $postdata['eventval']= $product->getProductUrl();
+        $postdata['eventval'] = $product->getProductUrl();
         $postdata['source'] = $source;
-        $postdata["price"] = Mage::helper('core')->currency($product!=null?$product->getFinalPrice():"", true, false);
+        $postdata["price"] = Mage::helper('core')->currency($product != null ? $product->getFinalPrice() : "", true, false);
 
-        $ch = curl_init ();
-        curl_setopt ($ch, CURLOPT_URL,"$wigzo_host/learn/" . $orgToken ."/addtocart/".$cookieID );
-        curl_setopt ($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt ($ch, CURLOPT_POST, 1);
-        curl_setopt ($ch, CURLOPT_POSTFIELDS, json_encode ($postdata));
-        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-        $server_output = curl_exec ($ch);
-        curl_close ($ch);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "$wigzo_host/learn/" . $orgToken . "/addtocart/" . $cookieID);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postdata));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $server_output = curl_exec($ch);
+        curl_close($ch);
 
         // Write a new line to var/log/product-updates.log
         Mage::log(
@@ -113,17 +110,18 @@ class Wigzo_AutoCode_Model_Observer
     }
 
 
-    public function productBuy($observer){
+    public function productBuy($observer)
+    {
 
         $enabled = Mage::getStoreConfig('admin/wigzo/enabled');
         if ($enabled == NULL || $enabled == "false") {
-            Mage::log ("Wigzo Plugin is not Enabled! not writing updated.", null, "wigzo-updates.log");
+            Mage::log("Wigzo Plugin is not Enabled! not writing updated.", null, "wigzo-updates.log");
             return;
         }
 
         $wigzo_host = "https://app.wigzo.com";
-        if (file_exists ("/tmp/wigzomode")) {
-            $wigzo_host = trim (file_get_contents ("/tmp/wigzomode"));
+        if (file_exists("/tmp/wigzomode")) {
+            $wigzo_host = trim(file_get_contents("/tmp/wigzomode"));
         }
 
         $cookieID = Mage::getSingleton('core/cookie')->get()['WIGZO_LEARNER_ID'];
@@ -139,11 +137,11 @@ class Wigzo_AutoCode_Model_Observer
 
         $product_id = $readConnection->fetchAll($query);
         $eventVal = array();
-        $i=0;
-        foreach($product_id as $temp){
-            $product = $temp=Mage::getModel('catalog/product')->load($temp);
-           $eventVal[$i]= $product->getProductUrl();
-           $i++;
+        $i = 0;
+        foreach ($product_id as $temp) {
+            $product = $temp = Mage::getModel('catalog/product')->load($temp);
+            $eventVal[$i] = $product->getProductUrl();
+            $i++;
         }
 
         //$currency = str_replace ("100.00", "",  Mage::helper('core')->currency("100", true, false));
@@ -155,23 +153,23 @@ class Wigzo_AutoCode_Model_Observer
         $source = "web";
 
         //Post data to be sent in the request.
-        $postdata = array ();
+        $postdata = array();
         $postdata['lang'] = $lang;
         $postdata['eventCategory'] = $eventCategory;
         $postdata['_'] = $timestamp;
-        $postdata['e'] ="";
+        $postdata['e'] = "";
         $postdata['pageuuid'] = $pageUuid;
-        $postdata['eventval']= $eventVal;
+        $postdata['eventval'] = $eventVal;
         $postdata['source'] = $source;
 
-        $ch = curl_init ();
-        curl_setopt ($ch, CURLOPT_URL,"$wigzo_host/learn/" . $orgToken ."/buy/".$cookieID );
-        curl_setopt ($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt ($ch, CURLOPT_POST, 1);
-        curl_setopt ($ch, CURLOPT_POSTFIELDS, json_encode ($postdata));
-        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-        $server_output = curl_exec ($ch);
-        curl_close ($ch);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "$wigzo_host/learn/" . $orgToken . "/buy/" . $cookieID);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postdata));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $server_output = curl_exec($ch);
+        curl_close($ch);
 
 
         // Write a new line to var/log/product-updates.log
