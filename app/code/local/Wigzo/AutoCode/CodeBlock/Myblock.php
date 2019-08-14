@@ -13,6 +13,7 @@ class Wigzo_AutoCode_CodeBlock_Myblock extends Mage_Core_Block_Template
             $wigzodata["tracker"] = trim (file_get_contents ("/tmp/wigzomode"));
         }
         $wigzodata["enabled"] = true;
+        $wigzodata["suppression"] = "";
         $wigzodata["userIdentifier"] = "";
         $wigzodata["onsite"] = "true";
         $wigzodata["browserpush"] = true;
@@ -29,6 +30,20 @@ class Wigzo_AutoCode_CodeBlock_Myblock extends Mage_Core_Block_Template
         if (NULL == $enabled || $enabled == "false") {
             $wigzodata["enabled"] = false;
             return $wigzodata;
+        }
+
+        $suppression = Mage::getStoreConfig('admin/wigzo/suppression');
+        if (NULL != $suppression) {
+            $currentServerName = Mage::app()->getFrontController()->getRequest()->getServer('SERVER_NAME');
+            $blocked = explode (",", $suppression);
+
+            for ($i = 0 ; $i < count ($blocked) ; $i++) {
+                if ($blocked[$i] == $currentServerName) {
+                    $wigzodata["enabled"] = false;
+                    return $wigzodata;
+                }
+            }
+            $wigzodata["suppression"] = $suppression;
         }
 
         $viahttps = Mage::getStoreConfig('admin/wigzo/viahttps');

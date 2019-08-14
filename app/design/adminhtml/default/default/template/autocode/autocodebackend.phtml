@@ -62,6 +62,7 @@ if (window.location.port == "80" || window.location.port == "") {
 document.getElementById ("wigzoconfigframe").src = "<?php echo $this->getWigzoHost(); ?>/integration/magento/frame/" + iHost + "/" + "<?php echo $this->getAuthtoken(); ?>";
 
 window.addEventListener ('message', function (event) { 
+    debugger;
     var eventData = event.data;
     var aquired_token = eventData.key;
     if (! aquired_token) {
